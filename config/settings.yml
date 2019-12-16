@@ -1,0 +1,7 @@
+plugins:
+  fission_ipfs_storage_enabled:
+    default: false
+  fission_ipfs_storage_username:
+    default: ''
+  fission_ipfs_storage_password:
+    default: ''

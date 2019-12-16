@@ -1,0 +1,5 @@
+en:
+  site_settings:
+    fission_ipfs_storage_enabled: "Enable IPFS storage using Fission" 
+    fission_ipfs_storage_username: "Your Fission username"
+    fission_ipfs_storage_password: "Your Fission password"
