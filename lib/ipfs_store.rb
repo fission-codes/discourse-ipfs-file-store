@@ -8,27 +8,13 @@ module FileStore
   class IpfsStore < ::FileStore::BaseStore
 
     def store_upload(file, upload, content_type = nil)
-      #raise "not implemented in IPFS Store - store upload"
-      # Rails.logger.info("==================")
-      # Rails.logger.info("store upload")
-      # Rails.logger.info(file)
-      # Rails.logger.info(upload)
       path = get_path_for_upload(upload)
       store_file(file, path, content_type: content_type, filename: upload.original_filename)#, cache_locally: true)
-    end
-
-    def store_optimized_image(file, optimized_image, content_type = nil, secure: false)
-      raise "not implemented in IPFS Store - store optimized image"
-      # need to implement
-      # path = get_path_for_optimized_image(optimized_image)
-      # url, optimized_image.etag = store_file(file, path, content_type: content_type, private_acl: secure)
-      # url
     end
 
     # options
     #   - cache_locally
     def store_file(file, path, opts = {})
-      # raise "not implemented in IPFS Store - store file"
       cache_file(file, File.basename(path)) if opts[:cache_locally]
 
       path.prepend(File.join(upload_path, "/")) if Rails.configuration.multisite
@@ -61,8 +47,6 @@ module FileStore
     end
 
     def cdn_url(url)
-      #raise "not implemented in IPFS Store - cdn_url"
-      # need to implement
       return url if SiteSetting.Upload.s3_cdn_url.blank?
       schema = url[/^(https?:)?\/\//, 1]
       url.sub(File.join("#{schema}#{absolute_base_url}"), File.join(SiteSetting.Upload.s3_cdn_url, "/"))
@@ -74,6 +58,16 @@ module FileStore
 
     def external?
       true
+    end
+
+    ### Implement below this line.
+
+    def store_optimized_image(file, optimized_image, content_type = nil, secure: false)
+      raise "not implemented in IPFS Store - store optimized image"
+      # need to implement
+      # path = get_path_for_optimized_image(optimized_image)
+      # url, optimized_image.etag = store_file(file, path, content_type: content_type, private_acl: secure)
+      # url
     end
 
     def has_been_uploaded(url)
