@@ -53,30 +53,11 @@ module FileStore
     end
 
     def remove_file(url, path)
-      raise "not implemented in IPFS Store - remove_file"
-      # need to implement
-    end
-
-    def has_been_uploaded(url)
-      raise "not implemented in IPFS Store - has_been_uploaded"
-      # need to implement
+      # We don't delete files from IPFS so this method is a no-op
     end
 
     def purge_tombstone(grace_period)
-      raise "not implemented in IPFS Store - purge_tombstone"
-      # need to implement
-      blob_list = blob_service.list_blobs(azure_blob_container, {prefix: "tombstone"})
-      blob_list.each do |blob|
-        last_modified_diff = ((Time.now.utc - Time.parse(blob.properties[:last_modified])) / 1.day).round
-        blob_service.delete_blob(azure_blob_container, blob.name) if last_modified_diff > grace_period
-      end
-    end
-
-    def path_for(upload)
-      raise "not implemented in IPFS Store - path_for"
-      # need to implement
-      url = upload.try(:url)
-      FileStore::LocalStore.new.path_for(upload) if url && url[/^\/[^\/]/]
+      # We don't delete files from IPFS so this method is a no-op
     end
 
     def cdn_url(url)
@@ -88,16 +69,23 @@ module FileStore
     end
 
     def absolute_base_url
-      # raise "not implemented in IPFS Store - absolute_base_url"
-      # need to implement
       @absolute_base_url ||= SiteSetting.Upload.absolute_base_url
     end
 
-
     def external?
-      raise "not implemented in IPFS Store - external?"
-      # need to implement
       true
+    end
+
+    def has_been_uploaded(url)
+      raise "not implemented in IPFS Store - has_been_uploaded"
+      # need to implement
+    end
+
+    def path_for(upload)
+      raise "not implemented in IPFS Store - path_for"
+      # need to implement
+      url = upload.try(:url)
+      FileStore::LocalStore.new.path_for(upload) if url && url[/^\/[^\/]/]
     end
   end
 end
