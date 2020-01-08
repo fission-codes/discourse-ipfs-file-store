@@ -6,7 +6,7 @@ class IpfsGatewayValidator
   end
 
   def valid_value?(val)
-    val.present? && !(val.include?("http") || val.include?("https") || val.include?(":") || val.include?("/"))
+    val.blank? || (val.present? && !(val.include?("http") || val.include?("https") || val.include?(":") || val.include?("/")))
   end
 
   def error_message
