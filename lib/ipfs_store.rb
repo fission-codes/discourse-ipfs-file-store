@@ -19,7 +19,8 @@ module FileStore
 
       path.prepend(File.join(upload_path, "/")) if Rails.configuration.multisite
 
-      uri = URI.parse("https://#{SiteSetting.ipfs_storage_gateway}/ipfs")
+      # Can only upload files through Fission right now.
+      uri = URI.parse("https://runfission.com/ipfs")
       request = Net::HTTP::Post.new(uri)
       request.basic_auth(SiteSetting.ipfs_storage_username, SiteSetting.ipfs_storage_password)
       request.content_type = "application/octet-stream"
