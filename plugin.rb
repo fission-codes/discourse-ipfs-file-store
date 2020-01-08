@@ -5,7 +5,7 @@
 
 require "file_store/base_store"
 
-enabled_site_setting :fission_ipfs_storage_enabled
+enabled_site_setting :ipfs_storage_enabled
 
 after_initialize do
 
@@ -18,25 +18,25 @@ after_initialize do
     end
 
     def self.s3_cdn_url
-      if SiteSetting.fission_ipfs_storage_enabled
-        "https://runfission.com/ipfs/"
+      if SiteSetting.ipfs_storage_enabled
+        "https://#{SiteSetting.ipfs_storage_gateway}/ipfs/"
       else
         core_s3_cdn_url
       end
     end
 
     def self.enable_s3_uploads
-      return true if SiteSetting.fission_ipfs_storage_enabled
+      return true if SiteSetting.ipfs_storage_enabled
       core_enable_s3_uploads
     end
 
     def self.s3_base_url
-      return "//runfission.com/ipfs/" if SiteSetting.fission_ipfs_storage_enabled
+      return "//#{SiteSetting.ipfs_storage_gateway}/ipfs/" if SiteSetting.ipfs_storage_enabled
       core_s3_base_url
     end
 
     def self.absolute_base_url
-      return "//runfission.com/ipfs/" if SiteSetting.fission_ipfs_storage_enabled
+      return "//#{SiteSetting.ipfs_storage_gateway}/ipfs/" if SiteSetting.ipfs_storage_enabled
       core_absolute_base_url
     end
   end
@@ -46,7 +46,7 @@ after_initialize do
       alias_method :core_store, :store
     end
     def self.store
-      if SiteSetting.fission_ipfs_storage_enabled
+      if SiteSetting.ipfs_storage_enabled
         @ipfs_store_loaded ||= require './plugins/discourse-ipfs-file-store/lib/ipfs_store'
         FileStore::IpfsStore.new
       else
@@ -54,6 +54,6 @@ after_initialize do
       end
     end
   end
-
-
 end
+
+load File.expand_path("../lib/validators/ipfs_gateway_validator.rb", __FILE__)

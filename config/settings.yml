@@ -1,7 +1,10 @@
 plugins:
-  fission_ipfs_storage_enabled:
+  ipfs_storage_enabled:
     default: false
-  fission_ipfs_storage_username:
+  ipfs_storage_gateway:
     default: ''
-  fission_ipfs_storage_password:
+    validator: 'IpfsGatewayValidator'
+  ipfs_storage_username:
+    default: ''
+  ipfs_storage_password:
     default: ''

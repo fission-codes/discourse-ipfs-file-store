@@ -19,9 +19,9 @@ module FileStore
 
       path.prepend(File.join(upload_path, "/")) if Rails.configuration.multisite
 
-      uri = URI.parse("https://runfission.com/ipfs")
+      uri = URI.parse("https://#{SiteSetting.ipfs_storage_gateway}/ipfs")
       request = Net::HTTP::Post.new(uri)
-      request.basic_auth(SiteSetting.fission_ipfs_storage_username, SiteSetting.fission_ipfs_storage_password)
+      request.basic_auth(SiteSetting.ipfs_storage_username, SiteSetting.ipfs_storage_password)
       request.content_type = "application/octet-stream"
       request.body = ""
 
@@ -62,17 +62,23 @@ module FileStore
 
     ### Implement below this line.
 
+    def has_been_uploaded(url)
+      return false if url.blank?
+
+      base_hostname = URI.parse(absolute_base_url).hostname
+      return true if url[base_hostname]
+
+      return false if SiteSetting.Upload.cdn_url.blank?
+      cdn_hostname = URI.parse(SiteSetting.Upload.cdn_url || "").hostname
+      cdn_hostname.presence && url[cdn_hostname]
+    end
+
     def store_optimized_image(file, optimized_image, content_type = nil, secure: false)
       raise "not implemented in IPFS Store - store optimized image"
       # need to implement
       # path = get_path_for_optimized_image(optimized_image)
       # url, optimized_image.etag = store_file(file, path, content_type: content_type, private_acl: secure)
       # url
-    end
-
-    def has_been_uploaded(url)
-      raise "not implemented in IPFS Store - has_been_uploaded"
-      # need to implement
     end
 
     def path_for(upload)
