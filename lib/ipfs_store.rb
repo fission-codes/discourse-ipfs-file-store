@@ -15,6 +15,7 @@ module FileStore
     # options
     #   - cache_locally
     def store_file(file, path, opts = {})
+      Rails.logger.info("---------------- Store File")
       cache_file(file, File.basename(path)) if opts[:cache_locally]
 
       path.prepend(File.join(upload_path, "/")) if Rails.configuration.multisite
@@ -36,7 +37,7 @@ module FileStore
         http.request(request)
       end
 
-      "https:#{absolute_base_url}#{response.body}"
+      "#{absolute_base_url}#{response.body}"
     end
 
     def remove_file(url, path)
@@ -64,6 +65,7 @@ module FileStore
     ### Implement below this line.
 
     def has_been_uploaded(url)
+      Rails.logger.info("---------------- Has been uploaded")
       return false if url.blank?
 
       base_hostname = URI.parse(absolute_base_url).hostname
@@ -75,18 +77,24 @@ module FileStore
     end
 
     def store_optimized_image(file, optimized_image, content_type = nil, secure: false)
-      raise "not implemented in IPFS Store - store optimized image"
+      Rails.logger.info("---------------- Store Optimized Image")
+      # raise "not implemented in IPFS Store - store optimized image"
       # need to implement
-      # path = get_path_for_optimized_image(optimized_image)
-      # url, optimized_image.etag = store_file(file, path, content_type: content_type, private_acl: secure)
-      # url
+      path = get_path_for_optimized_image(optimized_image)
+      url = store_file(file, path)
+
+      # byebug
+      url
     end
 
     def path_for(upload)
-      raise "not implemented in IPFS Store - path_for"
+      Rails.logger.info("---------------- Path For")
+      # raise "not implemented in IPFS Store - path_for"
       # need to implement
       url = upload.try(:url)
       FileStore::LocalStore.new.path_for(upload) if url && url[/^\/[^\/]/]
+      # url if url.present?
+      # Below from S3 Store. Not sure why it's returing a localstore object.
     end
   end
 end
