@@ -1,7 +1,6 @@
 require 'net/http'
 require 'uri'
 require "mini_mime"
-require 'byebug'
 require_dependency "file_store/base_store"
 
 module FileStore
