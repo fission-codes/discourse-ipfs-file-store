@@ -14,7 +14,6 @@ module FileStore
     # options
     #   - cache_locally
     def store_file(file, path, opts = {})
-      Rails.logger.info("---------------- Store File")
       cache_file(file, File.basename(path)) if opts[:cache_locally]
 
       path.prepend(File.join(upload_path, "/")) if Rails.configuration.multisite
