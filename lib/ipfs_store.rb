@@ -49,9 +49,9 @@ module FileStore
     end
 
     def cdn_url(url)
-      return url if SiteSetting.Upload.s3_cdn_url.blank?
-      schema = url[/^(https?:)?\/\//, 1]
-      url.sub(File.join("#{schema}#{absolute_base_url}"), File.join(SiteSetting.Upload.s3_cdn_url, "/"))
+      # There is no CDN for IPFS - everything is served straight off there. So
+      # We just return the URL.
+      url
     end
 
     def absolute_base_url
@@ -62,39 +62,23 @@ module FileStore
       true
     end
 
-    ### Implement below this line.
-
     def has_been_uploaded(url)
-      Rails.logger.info("---------------- Has been uploaded")
       return false if url.blank?
 
+      # Return true if file lives on IPFS Gateway domain
       base_hostname = URI.parse(absolute_base_url).hostname
-      return true if url[base_hostname]
-
-      return false if SiteSetting.Upload.cdn_url.blank?
-      cdn_hostname = URI.parse(SiteSetting.Upload.cdn_url || "").hostname
-      cdn_hostname.presence && url[cdn_hostname]
+      return url[base_hostname] ? true : false
     end
 
     def store_optimized_image(file, optimized_image, content_type = nil, secure: false)
-      Rails.logger.info("---------------- Store Optimized Image")
-      # raise "not implemented in IPFS Store - store optimized image"
-      # need to implement
       path = get_path_for_optimized_image(optimized_image)
       url = store_file(file, path)
-
-      # byebug
       url
     end
 
     def path_for(upload)
-      Rails.logger.info("---------------- Path For")
-      # raise "not implemented in IPFS Store - path_for"
-      # need to implement
       url = upload.try(:url)
       FileStore::LocalStore.new.path_for(upload) if url && url[/^\/[^\/]/]
-      # url if url.present?
-      # Below from S3 Store. Not sure why it's returing a localstore object.
     end
   end
 end
