@@ -19,6 +19,7 @@ When you use this plugin with Discourse, you enter your Fission API keys and an 
 
 ## Configuration
 
+0. Make sure you've signed up for a [Fission](https://RunFission.com) account
 1. Visit `$your_site/admin/site_settings/category/plugins?filter=ipfs_storage`
 2. Select Enable IPFS storage
 2. Enter your Fission username and password
