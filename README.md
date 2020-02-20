@@ -15,7 +15,11 @@ When you use this plugin with Discourse, you enter your Fission API keys and an 
 
 ## Installation
 
-[Follow instructions here to install](https://meta.discourse.org/t/install-plugins-in-discourse/19157)
+1. [Follow instructions here to install](https://meta.discourse.org/t/install-plugins-in-discourse/19157)
+
+2. Don't forget to go to the directory where you installed the plugin and check out the v1 branch: `git checkout v1`.  
+
+3. Start discourse `bundle exec rails s`
 
 ## Configuration
 
