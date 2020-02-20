@@ -1,18 +1,24 @@
 # Discourse IPFS File Store
 
-A [Discourse forum](https://discourse.org) plugin to use IPFS to store files.
-
-_Note: this is an empty repo, and is where the code for this project will go. Please join our Discord chat for more info._
+A [Discourse forum](https://discourse.org) plugin to use IPFS to store files, using the Fission web API.
 
 [![License](https://img.shields.io/badge/License-GPLv2-blue.svg)](https://github.com/fission-suite/discourse-ipfs-file-store/blob/master/LICENSE)
 [![Built by FISSION](https://img.shields.io/badge/⌘-Built_by_FISSION-purple.svg)](https://fission.codes)
 [![Discord](https://img.shields.io/discord/478735028319158273.svg)](https://discord.gg/zAQBDEq)
 [![Discourse](https://img.shields.io/discourse/https/talk.fission.codes/topics)](https://talk.fission.codes)
 
-## Scope
+![](https://ipfs.runfission.com/ipfs/QmXR9Ljbn79uHnruXmts7VnwvhhL9SBeNUHqr7PJiGj9dN)
 
-Discourse includes S3 File Storage as a base component (see [components/file_store](https://github.com/discourse/discourse/tree/master/spec/components/file_store)).
+## Installing on your own Discourse
 
-This will add a file store component that stores files on IPFS, initially using Fission's Web API.
+Follow the [instructions for installing plugins into Discourse](https://meta.discourse.org/t/install-plugins-in-discourse/19157).
 
-The goal is to have a plugin that anyone can add to Discourse, enter their Fission API keys and an optional IPFS gateway URI, and files that are uploaded through Discourse will be stored and pinned on IPFS.
+Currently the testing branch is where the up to date code is, so you'll need to add this line to your `containers/app.yml`:
+
+`- git clone https://github.com/fission-suite/discourse-ipfs-file-store.git -b "v1"`
+
+Follow the [Fission Guide to register a new user / API key on the command line](https://guide.fission.codes/apps/getting-started). This gets filled into the Discourse settings for username and password (see screenshot above).
+
+For best results, use the Fission gateway: `ipfs.runfission.com`
+
+Further [discussion in the forum](https://talk.fission.codes/t/testing-discourse-ipfs-plugin/482).
