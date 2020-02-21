@@ -60,7 +60,7 @@ module FileStore
       true
     end
 
-    def has_been_uploaded(url)
+    def has_been_uploaded?(url)
       return false if url.blank?
 
       # Return true if file lives on IPFS Gateway domain
