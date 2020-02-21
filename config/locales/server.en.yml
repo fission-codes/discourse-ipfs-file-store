@@ -1,0 +1,8 @@
+en:
+  site_settings:
+    ipfs_storage_enabled: "Enable IPFS storage" 
+    ipfs_storage_gateway: "Your IPFS Gateway domain (e.g. example.com). No http/https."
+    ipfs_storage_username: "Your IPFS username"
+    ipfs_storage_password: "Your IPFS password"
+    errors:
+      invalid_ipfs_gateway: "Please enter a domain only (eg example.com). No http, https, colons or forward slashes please."

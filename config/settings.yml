@@ -1,0 +1,10 @@
+plugins:
+  ipfs_storage_enabled:
+    default: false
+  ipfs_storage_gateway:
+    default: ''
+    validator: 'IpfsGatewayValidator'
+  ipfs_storage_username:
+    default: ''
+  ipfs_storage_password:
+    default: ''
