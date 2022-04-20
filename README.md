@@ -30,7 +30,7 @@ Now you can enable and configure the plugin:
 
 ![](https://ipfs.runfission.com/ipfs/QmXR9Ljbn79uHnruXmts7VnwvhhL9SBeNUHqr7PJiGj9dN)
 
-0. Make sure you've signed up for a Fission account, [read the guide to register using the CLI interface](https://guide.fission.codes/apps/getting-started)
+0. Make sure you've signed up for a Fission account, [read the guide to register using the CLI interface](https://guide.fission.codes/developers/installation)
 1. Visit `$your_site/admin/site_settings/category/plugins?filter=ipfs_storage`
 2. Select Enable IPFS storage
 3. Enter your Fission username and password
